@@ -17,6 +17,8 @@
 default: &default
   adapter: postgresql
   encoding: unicode
+  username: postgres
+  password: 13647980
   # For details on connection pooling, see Rails configuration guide
   # https://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
@@ -82,5 +84,5 @@ test:
 production:
   <<: *default
   database: FurBlog_production
-  username: FurBlog
-  password: <%= ENV['FURBLOG_DATABASE_PASSWORD'] %>
+#  username: FurBlog
+#  password: <%= ENV['FURBLOG_DATABASE_PASSWORD'] %>
