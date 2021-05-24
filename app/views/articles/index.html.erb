@@ -2,6 +2,24 @@
 
 Our blog has <%= Article.public_count %> articles!
 
+<%= form_with url: "/articles", method: :get do |form| %>
+  <%= form.label :title, "Search for:" %>
+  <%= form.text_field :title, :value => @search_text %>
+  <span> | </span>
+  <%= form.label :category_id, "Category:" %>
+  <%= form.collection_select(:category_id,
+    [Category.new(id: 0, name: 'All')] + Category.all,
+    :id,
+    :name,
+    {:selected => @category_id})
+  %>
+  <%= form.submit "Search" %>
+<% end %>
+
+<div>
+  <h2> Articles in <%= (@category == 'All' ? 'all categories' : '"' + @category + '" category') %> </h2>
+</div>
+
 <ul>
   <% @articles.each do |article| %>
     <% if article.status == 'public' %>

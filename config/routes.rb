@@ -6,4 +6,6 @@ Rails.application.routes.draw do
   resources :articles do
     resources :comments
   end
+
+  get "/articles/:title", to: "articles#index"
 end

@@ -1,6 +1,6 @@
 <%= form_with model: article do |form| %>
   <div>
-    <%= form.label :title %><br>
+    <%= form.label :title, 'Title:' %><br>
     <%= form.text_field :title %>
     <% article.errors.full_messages_for(:title).each do |message| %>
       <div><%= message %></div>
@@ -8,7 +8,7 @@
   </div>
 
   <div>
-    <%= form.label :body %><br>
+    <%= form.label :body, 'Body:' %><br>
     <%= form.text_area :body %><br>
     <% article.errors.full_messages_for(:body).each do |message| %>
       <div><%= message %></div>
@@ -16,7 +16,12 @@
   </div>
 
   <div>
-    <%= form.label :status %><br>
+    <%= form.label :category, 'Category:' %><br>
+    <%= form.collection_select(:category_id, Category.all, :id, :name) %>
+  </div>
+
+  <div>
+    <%= form.label :status, 'Status:' %><br>
     <%= form.select :status, ['public', 'private'], selected: 'public' %>
   </div>
 
