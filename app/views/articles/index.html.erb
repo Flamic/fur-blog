@@ -31,3 +31,5 @@ Our blog has <%= Article.public_count %> articles!
 </ul>
 
 <%= link_to "New Article", new_article_path %>
+
+<%= paginate @articles, params: {action: 'index'} %>

@@ -3,6 +3,7 @@ class Article < ApplicationRecord
 
   belongs_to :category, required: true
   has_many :comments, dependent: :destroy
+  has_one_attached :picture, dependent: :destroy
   
   validates :title, presence: true
   validates :body, presence: true, length: { minimum: 10 }
@@ -10,5 +11,4 @@ class Article < ApplicationRecord
 
   scope :starts_with, ->(title) { where('"title" LIKE ?', "#{title}%") }
   scope :category_is, ->(category) { where(category_id: category) }
-  #scope :category_is, ->(category) { where("category_id = ?", :category.category_by_name(category).id) }
 end

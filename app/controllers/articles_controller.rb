@@ -11,6 +11,8 @@ class ArticlesController < ApplicationController
     if @category_id != '0'
       @articles = @articles.category_is(@category_id)
     end
+    
+    @articles = @articles.order(:title).page params[:page]
   end
 
   def show
@@ -54,6 +56,6 @@ class ArticlesController < ApplicationController
 
   private
     def article_params
-      params.require(:article).permit(:title, :body, :status, :category_id)
+      params.require(:article).permit(:title, :body, :status, :category_id, :picture)
     end
 end

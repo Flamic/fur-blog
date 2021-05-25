@@ -7,5 +7,5 @@ Rails.application.routes.draw do
     resources :comments
   end
 
-  get "/articles/:title", to: "articles#index"
+  #get "/articles/search/:title", to: "articles#index"
 end

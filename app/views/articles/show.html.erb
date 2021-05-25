@@ -1,3 +1,9 @@
+<% if @article.picture.attached? %>
+  <div>
+    <img src='<%= url_for(@article.picture) %>'>
+  </div>
+<% end %>
+
 <h1><%= @article.title %></h1>
 
 <p><%= @article.body %></p>

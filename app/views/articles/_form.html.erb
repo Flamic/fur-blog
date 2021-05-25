@@ -14,6 +14,11 @@
       <div><%= message %></div>
     <% end %>
   </div>
+  
+  <div>
+    <%= form.label :picture, 'Attached picture:' %><br>
+    <%= form.file_field :picture, accept: 'image/png,image/jpeg,image/gif' %>
+  </div>
 
   <div>
     <%= form.label :category, 'Category:' %><br>
