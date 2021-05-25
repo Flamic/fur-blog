@@ -1,24 +1,17 @@
-# README
+# FurBlog
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+FurBlog (on Ruby on rails) - new modern blog for cute furries and others OwO
 
-Things you may want to cover:
+* Getting started - +5
 
-* Ruby version
+* Searching - +2
 
-* System dependencies
+* Categories - +2
 
-* Configuration
+* Uploading images - +2
 
-* Database creation
+* Pagination - +2
 
-* Database initialization
+* Registration and authorization - +5
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+* Uploaded on Heroku (link: https://fur-blog.herokuapp.com/) - +3
