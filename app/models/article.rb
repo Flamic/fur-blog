@@ -1,6 +1,7 @@
 class Article < ApplicationRecord
   include Visible
 
+  belongs_to :user, required: true
   belongs_to :category, required: true
   has_many :comments, dependent: :destroy
   has_one_attached :picture, dependent: :destroy

@@ -1,7 +1,6 @@
 <%= form_with model: [ @article, @article.comments.build ] do |form| %>
   <p>
-    <%= form.label :commenter %><br>
-    <%= form.text_field :commenter %>
+    <%= form.label current_user.username %>
   </p>
   <p>
     <%= form.label :body %><br>

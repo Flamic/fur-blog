@@ -5,18 +5,21 @@
 <% end %>
 
 <h1><%= @article.title %></h1>
+<h3>Author: <%= @article.user.username %></h3>
 
 <p><%= @article.body %></p>
 
-<ul>
-  <li><%= link_to "Edit", edit_article_path(@article) %></li>
-  <li><%= link_to "Destroy", article_path(@article),
+<% if user_signed_in? %>
+  <div><%= link_to "Edit", edit_article_path(@article) %></div>
+  <div><%= link_to "Destroy", article_path(@article),
                   method: :delete,
-                  data: { confirm: "Are you sure?" } %></li>
-</ul>
+                  data: { confirm: "Are you sure?" } %></div>
+<% end %>
 
 <h2>Comments</h2>
 <%= render @article.comments %>
 
-<h2>Add a comment:</h2>
-<%= render 'comments/form' %>
+<% if user_signed_in? %>
+  <h2>Add a comment:</h2>
+  <%= render 'comments/form' %>
+<% end %>

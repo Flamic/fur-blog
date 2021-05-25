@@ -20,11 +20,14 @@ class ArticlesController < ApplicationController
   end
 
   def new
+    redirect_if_unauthorized
     @article = Article.new
   end
 
   def create
+    redirect_if_unauthorized
     @article = Article.new(article_params)
+    @article.user = current_user
 
     if @article.save
       redirect_to @article
@@ -34,10 +37,12 @@ class ArticlesController < ApplicationController
   end
 
   def edit
+    redirect_if_unauthorized
     @article = Article.find(params[:id])
   end
 
   def update
+    redirect_if_unauthorized
     @article = Article.find(params[:id])
 
     if @article.update(article_params)
@@ -48,6 +53,7 @@ class ArticlesController < ApplicationController
   end
 
   def destroy
+    redirect_if_unauthorized
     @article = Article.find(params[:id])
     @article.destroy
 
@@ -57,5 +63,11 @@ class ArticlesController < ApplicationController
   private
     def article_params
       params.require(:article).permit(:title, :body, :status, :category_id, :picture)
+    end
+
+    def redirect_if_unauthorized
+      if !user_signed_in?
+        redirect_to new_user_registration_path
+      end
     end
 end

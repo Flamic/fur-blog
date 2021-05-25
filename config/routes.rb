@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users
   root to: redirect("articles#index")
 
   get 'about', to: 'about#index'
@@ -6,6 +7,4 @@ Rails.application.routes.draw do
   resources :articles do
     resources :comments
   end
-
-  #get "/articles/search/:title", to: "articles#index"
 end
