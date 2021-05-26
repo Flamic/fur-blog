@@ -1,9 +1,10 @@
 <div class="row justify-content-center mt-3">
   <div class="col-10">
     <div class="card">
-      <% if @article.attachment %>
-        <img src='<%= get_image(@article.attachment_id) %>' class="card-img-top" style="height: 500px; object-fit: contain">
+      <% if @article.picture? %> 
+        <%= image_tag @article.picture_url, class: "card-img-top", style: "height: 500px; object-fit: contain" %>
       <% end %>
+      
       
       <div class="card-body">
         <h1 class="card-title"><%= @article.title %></h1>

@@ -4,8 +4,8 @@ class Article < ApplicationRecord
   belongs_to :user, required: true
   belongs_to :category, required: true
   has_many :comments, dependent: :destroy
-  has_one :attachment, dependent: :destroy
-  
+  mount_uploader :picture, PictureUploader
+
   validates :title, presence: true
   validates :body, presence: true, length: { minimum: 10 }
   validates :category_id, presence: true
