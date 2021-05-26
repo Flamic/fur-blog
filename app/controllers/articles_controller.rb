@@ -29,11 +29,6 @@ class ArticlesController < ApplicationController
     @article = Article.new(article_params)
     @article.user = current_user
 
-    @article.attachment = Attachment.create(article_id: @article.id,
-      data: params[:attachment][:data].read,
-      filename: params[:attachment][:data].original_filename,
-      mime_type: params[:attachment][:data].content_type)
-
     if @article.save
       redirect_to @article
     else
@@ -74,7 +69,7 @@ class ArticlesController < ApplicationController
 
   private
     def article_params
-      params.require(:article).permit(:title, :body, :status, :category_id, :attachment_id)
+      params.require(:article).permit(:title, :body, :status, :category_id, :picture)
     end
 
     def redirect_if_unauthorized

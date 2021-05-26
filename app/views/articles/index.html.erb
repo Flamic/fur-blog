@@ -1,12 +1,6 @@
-<div >
-  <h1>Articles</h1>
-
-  <b style="text-align: center; font-size: 14pt">
-    Our blog has <%= pluralize(Article.public_count, "article") %>!
-  </b>
-
+<div>
   <div>
-    <h2> Articles in <%= (@category == 'All' ? 'all categories' : '"' + @category + '" category') %> </h2>
+    <h2 class="my-3" style="text-align: center"> Articles in <%= (@category == 'All' ? 'all categories' : '"' + @category + '" category') %> </h2>
   </div>
 </div>
 
@@ -25,8 +19,8 @@
           <p class="card-text"><%= article.body %></p>
 
           <div style="background-color: #f4f4f4; border: 1px solid #dddddd; border-radius: 2px">
-            <% if article.picture.attached? %>
-              <img src='<%= url_for(article.picture) %>' class="card-img-bottom" style="height: 400px; object-fit: contain">
+            <% if article.picture? %>
+              <img src='<%= article.picture_url %>' class="card-img-bottom" style="height: 400px; object-fit: contain">
             <% end %>
           </div>
         </div>
@@ -41,8 +35,6 @@
   </div>
 </div>
 
-<% if user_signed_in? %>
-  <%= link_to "New Article", new_article_path %>
-<% end %>
-
-<%= paginate @articles, params: {action: 'index'} %>
+<div class="d-flex justify-content-center mt-4">
+  <%= paginate @articles, params: {action: 'index'} %>
+</div>

@@ -8,19 +8,12 @@
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <style>
-      navbar-collapse > *
-      {
-        margin-right: 5px;
-        color: red;
-      }
-    </style>
   </head>
 
   <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="/articles">
         <%= image_tag("F.png", alt: "", width: "20", height: "24", class: "d-inline-block align-text-top") %>
           <span style="margin: -5px; color: #17B0F5">urBlog</span>
         </a>
@@ -32,8 +25,16 @@
             <li class="nav-item">
               <a class="nav-link" aria-current="page" href="/articles">Articles</a>
             </li>
+            <% if user_signed_in? %>
+              <li class="nav-item">
+                <%= link_to "New Article", new_article_path, class: "nav-link" %>
+              </li>
+            <% end %>
             <li class="nav-item">
               <a class="nav-link" href="/about">About</a>
+            </li>
+            <li class="nav-item d-flex align-item-center" style="font-size: 12pt; margin-left: 15px">
+              <span class="navbar-text"> Our blog has <%= pluralize(Article.public_count, "article") %>!</span>
             </li>
           </ul>
           <%= form_with url: "/articles", class: "d-flex align-items-center", method: :get do |form| %>
