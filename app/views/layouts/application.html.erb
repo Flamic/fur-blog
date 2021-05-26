@@ -43,16 +43,16 @@
               :id,
               :name,
               {:selected => @category_id},
-              class: "form-control")
+              class: "form-control",
+              style: "margin-left: 5px")
             %>
-            <%= form.text_field :title, placeholder: "Search", value: @search_text, class: "form-control" %>
-            <%= form.submit "Search", class: "btn btn-outline-success" %>
+            <%= form.text_field :title, placeholder: "Search by title or user", value: @search_text, class: "form-control", style: "margin-left: 20px; width: 200px" %>
+            <%= form.submit "Search", class: "btn btn-outline-success", style: "margin-left: 5px" %>
           <% end %>
-          <form class="d-flex align-items-center">
+          <form class="d-flex align-items-center" style="margin-left: 50px">
             <% if user_signed_in? %>
-              <%= current_user.username %>
-              <%= link_to 'Edit profile', edit_user_registration_path, class: "btn btn-outline-dark" %>
-              <%= link_to 'Sign out', destroy_user_session_path, class: "btn btn-dark", :method => :delete %>
+              <%= link_to current_user.username, edit_user_registration_path, class: "btn btn-outline-dark", style: "width: auto" %>
+              <%= link_to 'Sign out', destroy_user_session_path, class: "btn btn-dark", style: "margin-left: 5px", :method => :delete %>
             <% else %>
               <%= link_to 'Sign in', new_user_session_path, class: "btn btn-light" %>
               <%= link_to 'Sign up', new_user_registration_path, class: "btn btn-dark" %>

@@ -1,0 +1,7 @@
+<%= form_with model: @article do |form| %>
+    <%= form.file_field :attachment,
+        accept: 'image/png,image/jpeg,image/gif',
+        enctype: "multipart/alternative",
+        class: "form-control"
+    %>
+<% end %>

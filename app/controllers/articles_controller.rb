@@ -3,7 +3,7 @@ class ArticlesController < ApplicationController
     @search_text = (params.has_key?(:title) ? params[:title] : '')
     @category_id = (params.has_key?(:category_id) ? params[:category_id] : '0')
     @category = (@category_id == '0' ? 'All' : Category.find(@category_id).name)
-    @articles = Article.all
+    @articles = Article.status_or_user_is("public", current_user)
 
     if !@search_text.empty?
       @articles = @articles.starts_with(params[:title])
@@ -12,7 +12,7 @@ class ArticlesController < ApplicationController
       @articles = @articles.category_is(@category_id)
     end
     
-    @articles = @articles.order(:title).page params[:page]
+    @articles = @articles.order(:created_at).page params[:page]
   end
 
   def show
@@ -28,6 +28,11 @@ class ArticlesController < ApplicationController
     redirect_if_unauthorized
     @article = Article.new(article_params)
     @article.user = current_user
+
+    @article.attachment = Attachment.create(article_id: @article.id,
+      data: params[:attachment][:data].read,
+      filename: params[:attachment][:data].original_filename,
+      mime_type: params[:attachment][:data].content_type)
 
     if @article.save
       redirect_to @article
@@ -69,7 +74,7 @@ class ArticlesController < ApplicationController
 
   private
     def article_params
-      params.require(:article).permit(:title, :body, :status, :category_id, :picture)
+      params.require(:article).permit(:title, :body, :status, :category_id, :attachment_id)
     end
 
     def redirect_if_unauthorized

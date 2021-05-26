@@ -1,8 +1,8 @@
-<div class="row justify-content-center">
+<div class="row justify-content-center mt-3">
   <div class="col-10">
     <div class="card">
-      <% if @article.picture.attached? %>
-        <img src='<%= url_for(@article.picture) %>' class="card-img-top" style="height: 500px; object-fit: contain">
+      <% if @article.attachment %>
+        <img src='<%= get_image(@article.attachment_id) %>' class="card-img-top" style="height: 500px; object-fit: contain">
       <% end %>
       
       <div class="card-body">
@@ -10,23 +10,28 @@
         <h5 class="card-title">Author: <%= @article.user.username %></h5>
         <p class="card-text"><%= @article.body %></p>
 
-        
-        <% if user_signed_in? %>
-          <span><%= link_to "Edit", edit_article_path(@article), :class => "btn btn-secondary" %></span>
-          <span><%= link_to "Remove", article_path(@article), :class => "btn btn-danger",
-                          method: :delete,
-                          data: { confirm: "Are you sure?" } %></span>
-        <% end %>
+        <div class="d-flex justify-content-end">
+          <% if user_signed_in? %>
+            <div><%= link_to "Edit", edit_article_path(@article), :class => "btn btn-secondary" %></div>
+            <div><%= link_to "Remove", article_path(@article), :class => "btn btn-danger", :style => "margin-left: 5px",
+                            method: :delete,
+                            data: { confirm: "Are you sure?" } %></div>
+          <% end %>
+        </div>
       </div>
     </div>
   </div>
+</div>
 
-  <div class="col-10 mt-3">
-    <h2>Comments</h2>
-    <%= render @article.comments %>
+<div class="row justify-content-center mt-3">
+  <div class="col-10 justify-content-start">
+    <div class="col-7">
+      <h3>Comments</h3>
+      <%= render @article.comments %>
 
-    <% if user_signed_in? %>
-      <%= render 'comments/form' %>
-    <% end %>
+      <% if user_signed_in? %>
+        <%= render 'comments/form' %>
+      <% end %>
+    </div>
   </div>
 </div>

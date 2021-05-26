@@ -1,23 +1,26 @@
-<div class="card"> 
+<div class="card mb-2"> 
   <div class="card-header">
-    <div class="float-start"><b><%= comment.user.username %></b></div>
-    <div class="float-start" style="color: grey">[<%= comment.created_at %>]</div>
-    <div class="float-right">
-    <% if comment.user == current_user %>
-      <p>
-        <%= button_to 'Remove comment', [comment.article, comment], :class => "btn btn-danger",
-                    method: :delete,
-                    data: { confirm: "Are you sure?" } %>
-      </p>
-    <% end %>
+    <div class="align-items-center" style="display: flex; justify-content: space-between">
+      <div>
+        <b style="font-size: 14pt"><%= comment.user.username %></b>
+      </div>
+      
+      <% if comment.user == current_user %>
+        <div>
+          <%= button_to 'Remove comment',
+                      [comment.article, comment],
+                      :class => "btn btn-danger btn-sm",
+                      method: :delete,
+                      data: { confirm: "Are you sure?" } %>
+        </div>
+      <% end %>
     </div>
   </div>
 
   <div class="card-body">
-    
+    <div class="card-text">
+      <%= comment.body %>
+    </div>
+    <div style="color: grey; font-size: 10pt; text-align: right">[<%= comment.created_at %>]</div>
   </div>
-  <p class="card-text">
-    <%= comment.body %>
-  </p>
-
 </div>

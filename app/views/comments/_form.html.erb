@@ -1,4 +1,4 @@
-<div class="row col-4">
+<div class="row mt-2">
   <%= form_with model: [ @article, @article.comments.build ] do |form| %>
     <div class="form-group">
       <b> <%= form.label current_user.username, :class => "control-label" %> </b>
