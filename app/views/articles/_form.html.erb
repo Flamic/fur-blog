@@ -1,36 +1,40 @@
-<%= form_with model: article do |form| %>
-  <div>
-    <%= form.label :title, 'Title:' %><br>
-    <%= form.text_field :title %>
-    <% article.errors.full_messages_for(:title).each do |message| %>
-      <div><%= message %></div>
+<div class="row justify-content-center">
+  <div class="col-5">
+    <%= form_with model: article do |form| %>
+      <div class="form-group">
+        <%= form.label :title, 'Title:', :class => "control-label" %><br>
+        <%= form.text_field :title, :class => "form-control" %>
+        <% article.errors.full_messages_for(:title).each do |message| %>
+          <div class="text-danger"><%= message %></div>
+        <% end %>
+      </div>
+
+      <div class="form-group">
+        <%= form.label :body, 'Body:', :class => "control-label" %><br>
+        <%= form.text_area :body, :class => "form-control" %><br>
+        <% article.errors.full_messages_for(:body).each do |message| %>
+          <div class="text-danger"><%= message %></div>
+        <% end %>
+      </div>
+      
+      <div class="form-group">
+        <%= form.label :picture, 'Attached picture:', :class => "control-label" %><br>
+        <%= form.file_field :picture, accept: 'image/png,image/jpeg,image/gif', :class => "form-control" %>
+      </div>
+
+      <div class="form-group">
+        <%= form.label :category, 'Category:', :class => "control-label" %><br>
+        <%= form.collection_select(:category_id, Category.all, :id, :name, :class => "form-control") %>
+      </div>
+
+      <div class="form-group">
+        <%= form.label :status, 'Status:', :class => "control-label" %><br>
+        <%= form.select :status, ['public', 'private'], selected: 'public', :class => "form-control" %>
+      </div>
+
+      <div class="form-group">
+        <%= form.submit :class => "btn btn-success mt-2" %>
+      </div>
     <% end %>
   </div>
-
-  <div>
-    <%= form.label :body, 'Body:' %><br>
-    <%= form.text_area :body %><br>
-    <% article.errors.full_messages_for(:body).each do |message| %>
-      <div><%= message %></div>
-    <% end %>
-  </div>
-  
-  <div>
-    <%= form.label :picture, 'Attached picture:' %><br>
-    <%= form.file_field :picture, accept: 'image/png,image/jpeg,image/gif' %>
-  </div>
-
-  <div>
-    <%= form.label :category, 'Category:' %><br>
-    <%= form.collection_select(:category_id, Category.all, :id, :name) %>
-  </div>
-
-  <div>
-    <%= form.label :status, 'Status:' %><br>
-    <%= form.select :status, ['public', 'private'], selected: 'public' %>
-  </div>
-
-  <div>
-    <%= form.submit %>
-  </div>
-<% end %>
+</div>

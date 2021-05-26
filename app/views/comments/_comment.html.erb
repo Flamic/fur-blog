@@ -1,16 +1,23 @@
-<p>
-  <%= comment.user.username %>
-</p>
+<div class="card"> 
+  <div class="card-header">
+    <div class="float-start"><b><%= comment.user.username %></b></div>
+    <div class="float-start" style="color: grey">[<%= comment.created_at %>]</div>
+    <div class="float-right">
+    <% if comment.user == current_user %>
+      <p>
+        <%= button_to 'Remove comment', [comment.article, comment], :class => "btn btn-danger",
+                    method: :delete,
+                    data: { confirm: "Are you sure?" } %>
+      </p>
+    <% end %>
+    </div>
+  </div>
 
-<p>
-  <strong>Comment:</strong>
-  <%= comment.body %>
-</p>
-
-<% if comment.user == current_user %>
-  <p>
-    <%= link_to 'Remove comment', [comment.article, comment],
-                method: :delete,
-                data: { confirm: "Are you sure?" } %>
+  <div class="card-body">
+    
+  </div>
+  <p class="card-text">
+    <%= comment.body %>
   </p>
-<% end %>
+
+</div>

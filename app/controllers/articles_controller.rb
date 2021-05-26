@@ -38,12 +38,16 @@ class ArticlesController < ApplicationController
 
   def edit
     redirect_if_unauthorized
+
     @article = Article.find(params[:id])
   end
 
   def update
     redirect_if_unauthorized
     @article = Article.find(params[:id])
+    if @article.user != current_user
+      redirect_to root_path
+    end
 
     if @article.update(article_params)
       redirect_to @article
@@ -55,6 +59,9 @@ class ArticlesController < ApplicationController
   def destroy
     redirect_if_unauthorized
     @article = Article.find(params[:id])
+    if @article.user != current_user
+      redirect_to root_path
+    end
     @article.destroy
 
     redirect_to root_path

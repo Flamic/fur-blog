@@ -57,3 +57,7 @@ gem 'kaminari'
 
 # Authentification
 gem 'devise'
+
+gem 'jquery-rails'
+
+gem 'bootstrap', '~> 5.0.1'

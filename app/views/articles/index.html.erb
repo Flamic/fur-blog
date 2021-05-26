@@ -1,35 +1,36 @@
-<h1>Articles</h1>
+<div >
+  <h1>Articles</h1>
 
-Our blog has <%= Article.public_count %> articles!
+  Our blog has <%= Article.public_count %> articles!
 
-<%= form_with url: "/articles", method: :get do |form| %>
-  <%= form.label :title, "Search for:" %>
-  <%= form.text_field :title, :value => @search_text %>
-  <span> | </span>
-  <%= form.label :category_id, "Category:" %>
-  <%= form.collection_select(:category_id,
-    [Category.new(id: 0, name: 'All')] + Category.all,
-    :id,
-    :name,
-    {:selected => @category_id})
-  %>
-  <%= form.submit "Search" %>
-<% end %>
-
-<div>
-  <h2> Articles in <%= (@category == 'All' ? 'all categories' : '"' + @category + '" category') %> </h2>
+  <div>
+    <h2> Articles in <%= (@category == 'All' ? 'all categories' : '"' + @category + '" category') %> </h2>
+  </div>
 </div>
 
-<ul>
-  <% @articles.each do |article| %>
-    <% if article.status == 'public' %>
-      <li>
-        <%= link_to article.title, article %>
-        <span> by <%= article.user.username %> </span>
-      </li>
+<div class="row justify-content-center">
+  <div class="col-8">
+    <% @articles.each do |article| %>
+      <div class="card">
+        <h3 class="card-title mt-2" style="margin-left: 20px">
+          <%= article.title %>
+          <% if article.status == 'private' %>
+            (<i style="color: red">private</i>)
+          <% end %>
+        </h3>
+        <h5 class="card-text text-muted" style="margin-left: 20px"> by <%= article.user.username %></h5>
+        <div class="card-body">
+          <p class="card-text"><%= article.body %></p>
+
+          <% if article.picture.attached? %>
+            <img src='<%= url_for(article.picture) %>' class="card-img-bottom" style="height: 300px; object-fit: contain">
+          <% end %>
+          <%= link_to 'Read more', article, class: "btn btn-dark" %>
+        </div>
+      </div>
     <% end %>
-  <% end %>
-</ul>
+  </div>
+</div>
 
 <% if user_signed_in? %>
   <%= link_to "New Article", new_article_path %>

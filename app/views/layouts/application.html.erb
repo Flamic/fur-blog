@@ -8,21 +8,75 @@
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <style>
+      navbar-collapse > *
+      {
+        margin-right: 5px;
+        color: red;
+      }
+    </style>
   </head>
 
   <body>
-    <% if user_signed_in? %>
-      <span><%= current_user.username %></span>
-      <%= link_to 'Edit profile', edit_user_registration_path %>
-      <%= link_to 'Sign out', destroy_user_session_path, :method => :delete %>
-    <% else %>
-      <%= link_to 'Sign in', new_user_session_path %>
-      <%= link_to 'Sign up', new_user_registration_path %>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+        <%= image_tag("F.png", alt: "", width: "20", height: "24", class: "d-inline-block align-text-top") %>
+          <span style="margin: -5px; color: #17B0F5">urBlog</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="/articles">Articles</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/about">About</a>
+            </li>
+          </ul>
+          <%= form_with url: "/articles", class: "d-flex align-items-center", method: :get do |form| %>
+            <%= form.label :category_id, "Category:" %>
+            <%= form.collection_select(:category_id,
+              [Category.new(id: 0, name: 'All')] + Category.all,
+              :id,
+              :name,
+              {:selected => @category_id},
+              class: "form-control")
+            %>
+            <%= form.text_field :title, placeholder: "Search", value: @search_text, class: "form-control" %>
+            <%= form.submit "Search", class: "btn btn-outline-success" %>
+          <% end %>
+          <form class="d-flex align-items-center">
+            <% if user_signed_in? %>
+              <%= current_user.username %>
+              <%= link_to 'Edit profile', edit_user_registration_path, class: "btn btn-outline-dark" %>
+              <%= link_to 'Sign out', destroy_user_session_path, class: "btn btn-dark", :method => :delete %>
+            <% else %>
+              <%= link_to 'Sign in', new_user_session_path, class: "btn btn-light" %>
+              <%= link_to 'Sign up', new_user_registration_path, class: "btn btn-dark" %>
+            <% end %>
+          </form>
+        </div>
+      </div>
+    </nav>
+    <% if notice %>
+      <div class="notice alert alert-info" role="alert">
+        <% if notice == 'Signed in successfully.' %>
+          <h3 style="text-align: center">
+          <%= image_tag("hewwo.webp", alt: "Cute Furry", class: "", style: "object-fit: contain; height: 100px") %>
+          , <%= current_user.username %>!
+          </h3>
+        <% else %>
+          <%= notice %>
+        <% end %>
+      </div>
     <% end %>
-    
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
-    
+    <% if alert %>
+      <div class="alert alert-danger" role="alert"><%= alert %></div>
+    <% end %>
+
     <%= yield %>
   </body>
 </html>

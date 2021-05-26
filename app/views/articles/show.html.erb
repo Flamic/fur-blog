@@ -1,25 +1,32 @@
-<% if @article.picture.attached? %>
-  <div>
-    <img src='<%= url_for(@article.picture) %>'>
+<div class="row justify-content-center">
+  <div class="col-10">
+    <div class="card">
+      <% if @article.picture.attached? %>
+        <img src='<%= url_for(@article.picture) %>' class="card-img-top" style="height: 500px; object-fit: contain">
+      <% end %>
+      
+      <div class="card-body">
+        <h1 class="card-title"><%= @article.title %></h1>
+        <h5 class="card-title">Author: <%= @article.user.username %></h5>
+        <p class="card-text"><%= @article.body %></p>
+
+        
+        <% if user_signed_in? %>
+          <span><%= link_to "Edit", edit_article_path(@article), :class => "btn btn-secondary" %></span>
+          <span><%= link_to "Remove", article_path(@article), :class => "btn btn-danger",
+                          method: :delete,
+                          data: { confirm: "Are you sure?" } %></span>
+        <% end %>
+      </div>
+    </div>
   </div>
-<% end %>
 
-<h1><%= @article.title %></h1>
-<h3>Author: <%= @article.user.username %></h3>
+  <div class="col-10 mt-3">
+    <h2>Comments</h2>
+    <%= render @article.comments %>
 
-<p><%= @article.body %></p>
-
-<% if user_signed_in? %>
-  <div><%= link_to "Edit", edit_article_path(@article) %></div>
-  <div><%= link_to "Destroy", article_path(@article),
-                  method: :delete,
-                  data: { confirm: "Are you sure?" } %></div>
-<% end %>
-
-<h2>Comments</h2>
-<%= render @article.comments %>
-
-<% if user_signed_in? %>
-  <h2>Add a comment:</h2>
-  <%= render 'comments/form' %>
-<% end %>
+    <% if user_signed_in? %>
+      <%= render 'comments/form' %>
+    <% end %>
+  </div>
+</div>

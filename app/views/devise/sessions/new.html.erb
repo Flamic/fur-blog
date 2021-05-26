@@ -1,26 +1,38 @@
-<h2>Log in</h2>
-
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "current-password" %>
-  </div>
-
-  <% if devise_mapping.rememberable? %>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
+<div class="row justify-content-center" style="height: 80vh">
+    <div class="col-4 d-flex">
+      <%= image_tag("cute1.jfif", alt: "Cute Furry", class: "align-self-center", style: "object-fit: contain; width: 100%") %>
     </div>
-  <% end %>
+    <div class="col-4 d-flex">
+    <div class="align-self-center" style="width: 100%">
+      <h2>Sign in</h2>
 
-  <div class="actions">
-    <%= f.submit "Log in" %>
+      <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+        <div class="field form-group">
+          <%= f.label :email, :class => "control-label" %><br />
+          <%= f.email_field :email, :autofocus => true, :autocomplete => "email", :class => "form-control" %>
+        </div>
+
+        <div class="field form-group mt-2">
+          <%= f.label :password, :class => "control-label" %>
+          <% if @minimum_password_length %>
+            <em>(<%= @minimum_password_length %> characters minimum)</em>
+          <% end %><br />
+          <%= f.password_field :password, :autocomplete => "new-password", :class => "form-control" %>
+        </div>
+
+        <% if devise_mapping.rememberable? %>
+          <div class="field mt-2">
+            <%= f.check_box :remember_me %>
+            <%= f.label :remember_me %>
+          </div>
+        <% end %>
+
+        <div class="actions form-group mt-4">
+          <%= f.submit "Log in", :class => "form-control btn-success" %>
+        </div>
+      <% end %>
+
+    <div class="text-center mt-2">Don't have account? <%= render "devise/shared/links" %></div>
   </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+  </div>
+</div>
