@@ -15,3 +15,5 @@ FurBlog (on Ruby on rails) - new modern blog for cute furries and others OwO
 * Registration and authorization - +5
 
 * Uploaded on Heroku (link: https://fur-blog.herokuapp.com/) - +3
+
+* Uploading images to AWS S3 Cloud - +2
