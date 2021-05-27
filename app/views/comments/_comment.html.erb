@@ -4,16 +4,20 @@
       <div>
         <b style="font-size: 14pt"><%= comment.user.username %></b>
       </div>
-      
+      <div style="display: flex; align-items: center">
+        <span style="color: grey; font-size: 10pt">
+          <%= comment.created_at.localtime.strftime('%H:%M:%S %d.%m.%Y') %>
+        </span>
       <% if comment.user == current_user %>
-        <div>
+        <span style="margin-left: 10px">
           <%= button_to 'Remove comment',
                       [comment.article, comment],
                       :class => "btn btn-danger btn-sm",
                       method: :delete,
                       data: { confirm: "Are you sure?" } %>
-        </div>
+        </span>
       <% end %>
+      </div>
     </div>
   </div>
 
@@ -21,6 +25,6 @@
     <div class="card-text">
       <%= comment.body %>
     </div>
-    <div style="color: grey; font-size: 10pt; text-align: right">[<%= comment.created_at %>]</div>
+    
   </div>
 </div>

@@ -4,7 +4,7 @@ class ArticlesController < ApplicationController
     @category_id = (params.has_key?(:category_id) ? params[:category_id] : '0')
     @category = (@category_id == '0' ? 'All' : Category.find(@category_id).name)
     @articles = Article.status_or_user_is("public", current_user)
-
+    #@articles = Article.where("status = ? OR user_id = ?", "public", current_user)
     if !@search_text.empty?
       @articles = @articles.starts_with(params[:title])
     end

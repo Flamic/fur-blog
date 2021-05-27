@@ -8,13 +8,20 @@
   <div class="col-8">
     <% @articles.each do |article| %>
       <div class="card p-3 mb-3">
-        <h3 class="card-title">
-          <%= article.title %>
-          <% if article.status == 'private' %>
-            <i style="color: grey">(private)</i>
-          <% end %>
-        </h3>
-        <h5 class="card-text text-muted"> by <%= article.user.username %></h5>
+        <div>
+          <span style="float: right; margin: 0 0 3px 5px; color: grey; font-weight: 400; font-size: 12pt">
+            posted at <%= article.created_at.localtime.strftime('%H:%M:%S %d.%m.%Y') %> </span>
+          </span>
+          <h3 class="card-title">
+            <%= article.title %>
+            <% if article.status == 'private' %>
+              <i style="color: grey">(private)</i>
+            <% end %>
+          </h3>
+        </div>
+        <h5 class="card-text text-muted">
+          <%= article.category.name %>, by <%= article.user.username %>
+        </h5>
         <div class="card-body">
           <p class="card-text"><%= article.body %></p>
 
@@ -25,9 +32,11 @@
           </div>
         </div>
         <div class="align-items-end" style="display: flex; justify-content: space-between">
-          <div style="font-size: 14pt; color: grey"><%= pluralize(article.comments.count, "comment") %></div>
+          <div style="font-size: 14pt; color: grey">
+            <%= pluralize(article.comments.count, "comment") %>
+          </div>
           <div>
-          <%= link_to 'Read more ➤', article, class: "btn btn-dark btn-lg" %>
+            <%= link_to 'Read more ➤', article, class: "btn btn-dark btn-lg" %>
           </div>
         </div>
       </div>
