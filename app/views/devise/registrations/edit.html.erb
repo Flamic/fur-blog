@@ -7,12 +7,12 @@
       <%= render "devise/shared/error_messages", resource: resource %>
 
       <div class="field form-group">
-        <%= f.label :username, :class => "control-label" %><br />
+        <%= f.label "Username", :class => "control-label" %><br />
         <%= f.text_field :username, autofocus: true, :class => "form-control" %>
       </div>
 
       <div class="field form-group">
-        <%= f.label :email, :class => "control-label" %><br />
+        <%= f.label "Email", :class => "control-label" %><br />
         <%= f.email_field :email, autocomplete: "email", :class => "form-control" %>
       </div>
 
@@ -21,7 +21,7 @@
       <% end %>
 
       <div class="field form-group mt-3">
-        <%= f.label :password, :class => "control-label" %> 
+        <%= f.label "Password", :class => "control-label" %> 
         <% if @minimum_password_length %>
           <br />
           <em><%= @minimum_password_length %> characters minimum</em>
@@ -31,12 +31,12 @@
       </div>
 
       <div class="field form-group">
-        <%= f.label :password_confirmation, :class => "control-label" %><br />
+        <%= f.label "Confirm password", :class => "control-label" %><br />
         <%= f.password_field :password_confirmation, autocomplete: "new-password", :class => "form-control" %>
       </div>
 
       <div class="field form-group">
-        <%= f.label :current_password, :class => "control-label" %> <i>(we need your current password to confirm your changes)</i><br />
+        <%= f.label "Current password", :class => "control-label" %> <i>(we need your current password to confirm your changes)</i><br />
         <%= f.password_field :current_password, autocomplete: "current-password", :class => "form-control" %>
       </div>
 
@@ -54,6 +54,6 @@
         method: :delete %>
     </div>
 
-    <%= link_to "Back", :back, :class => "btn btn-secondary mt-2" %>
+    <%= link_to "Back", :back, :class => "btn btn-secondary my-2" %>
   </div>
 </div>
